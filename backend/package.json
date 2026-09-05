@@ -1,0 +1,12 @@
+{
+  "name": "financy-api",
+  "version": "1.0.0",
+  "description": "API da aplicação Financy da FTR",
+  "license": "ISC",
+  "author": "Gustavo Felipe",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
