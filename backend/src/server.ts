@@ -5,17 +5,16 @@ import { buildSchema } from 'type-graphql';
 import { resolvers } from './resolvers/index';
 import { prisma, createContext } from './context';
 import { AuthService } from './services/auth.service';
-// import { CategoryService } from './services/category.service';
-// import { TransactionService } from './services/transaction.service';
-// import { env } from './env';
+import { CategoryService } from './services/category.service';
+import { TransactionService } from './services/transaction.service';
 
 import dotenv from "dotenv";
 dotenv.config();
 
 const authService = new AuthService(prisma);
-// const categoryService = new CategoryService(prisma);
-// const transactionService = new TransactionService(prisma);
-const contextFn = createContext(authService);
+const categoryService = new CategoryService(prisma);
+const transactionService = new TransactionService(prisma);
+const contextFn = createContext(authService, categoryService, transactionService);
  
 const start = async () => {
   const schema = await buildSchema({
