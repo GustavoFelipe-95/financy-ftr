@@ -20,13 +20,17 @@ npm install-scripts approve @apollo/protobufjs@1.2.8 esbuild@0.28.2 workerd@1.20
 npm install-scripts approve esbuild@0.28.2
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-[] O usuário pode criar uma conta e fazer login
-[] O usuário pode ver e gerenciar apenas as transações e categorias criadas por ele
-[] Deve ser possível criar uma transação
-[] Deve ser possível deletar uma transação
-[] Deve ser possível editar uma transação
-[] Deve ser possível listar todas as transações
-[] Deve ser possível criar uma categoria
-[] Deve ser possível deletar uma categoria
-[] Deve ser possível editar uma categoria
-[] Deve ser possível listar todas as categorias
+[x] 1. Criar conta e fazer login - `POST /` com as mutations `signup` e `login`
+[ ] 2. Ver e gerenciar apenas os próprios dados - `POST /` com `transactions`, `categories` e mutations de CRUD; falta corrigir os field resolvers aninhados
+[x] 3. Criar uma transação - `POST /` com a mutation `createTransaction`
+[x] 4. Deletar uma transação - `POST /` com a mutation `deleteTransaction`
+[x] 5. Editar uma transação - `POST /` com a mutation `updateTransaction`
+[x] 6. Listar todas as transações - `POST /` com a query `transactions`
+[x] 7. Criar uma categoria - `POST /` com a mutation `createCategory`
+[x] 8. Deletar uma categoria - `POST /` com a mutation `deleteCategory`
+[x] 9. Editar uma categoria - `POST /` com a mutation `updateCategory`
+[x] 10. Listar todas as categorias - `POST /` com a query `categories`
+
+Validação executada: `npm run build` passou. Não existem testes automatizados
+na pasta `tests`; as rotas acima foram verificadas no schema, resolvers e
+services, não executadas por uma suíte HTTP/E2E.

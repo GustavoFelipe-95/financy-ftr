@@ -1,6 +1,6 @@
 import '@/index.css';
 
-export function DashboardScreen() {
+export function CategoriesScreen() {
   return (
     <></>
   )

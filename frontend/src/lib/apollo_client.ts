@@ -5,7 +5,7 @@ import { ErrorLink } from '@apollo/client/link/error'
 import { getToken, clearToken } from '@storage/auth'
 
 const httpLink = new HttpLink({
-  uri: import.meta.env.VITE_GRAPHQL_URI,
+  uri: import.meta.env.VITE_BACKEND_URL,
 })
 
 const authenticationLink = new SetContextLink((prevContext) => {

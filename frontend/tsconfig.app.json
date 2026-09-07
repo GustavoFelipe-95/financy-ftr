@@ -17,7 +17,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@lib/*": ["./src/lib/*"],
       "@pages/*": ["./src/pages/*"],
-      "@routes/*": ["./src/routes/*"],
+      "@routes": ["./src/routes"],
       "@storage/*": ["./src/storage/*"],
       "@types/*": ["./src/types/*"],
       "@validations/*": ["./src/validations/*"]

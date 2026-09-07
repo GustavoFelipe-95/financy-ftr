@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import 'reflect-metadata';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
@@ -7,9 +8,6 @@ import { prisma, createContext } from './context';
 import { AuthService } from './services/auth.service';
 import { CategoryService } from './services/category.service';
 import { TransactionService } from './services/transaction.service';
-
-import dotenv from "dotenv";
-dotenv.config();
 
 const authService = new AuthService(prisma);
 const categoryService = new CategoryService(prisma);
