@@ -1,19 +1,21 @@
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ApolloProvider } from '@apollo/client/react';
+import { apolloClient } from '@lib/apollo_client';
+
 import './index.css'
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-      </section>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <ApolloProvider client={apolloClient}>
+        <></>
+      </ApolloProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   )
 }
 
