@@ -1,0 +1,18 @@
+export const CATEGORY_ICON_LIST = [
+  { value: 'Briefcase', label: 'Bag (work)' },
+  { value: 'Car', label: 'Car' },
+  { value: 'HeartPulse', label: 'Heart Pulse' },
+  { value: 'PiggyBank', label: 'Piggy' },
+  { value: 'ShoppingCart', label: 'Shopping Cart' },
+  { value: 'Ticket', label: 'Ticket' },
+  { value: 'Box', label: 'Box' },
+  { value: 'Utensils', label: 'Fork and Knife' },
+  { value: 'PawPrint', label: 'Pet' },
+  { value: 'Home', label: 'House' },
+  { value: 'Gift', label: 'Gift' },
+  { value: 'Dumbbell', label: 'Gym' },
+  { value: 'Book', label: 'Book' },
+  { value: 'Plane', label: 'Travel' },
+  { value: 'Mail', label: 'Mail' },
+  { value: 'FileText', label: 'Notes' },
+];
