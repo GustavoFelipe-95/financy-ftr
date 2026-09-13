@@ -12,6 +12,8 @@ import { Button } from '@/components/ui/button';
 import { CategoryIcon } from '@/components/custom/categoryIcon';
 
 import '@/index.css';
+import { useTransactionMutations } from '@/hooks/useMutations';
+import { FormTransactionModal } from '@/components/form/transactionModal';
 
 function getMonthPrefix(): string {
   const date = new Date();
@@ -83,20 +85,26 @@ function useCategoryAnalysis(categories: any[], transactions: any[]) {
 
 export function DashboardScreen() {
   const [modalOpen, setModalOpen] = useState(false)
+  
   const {
     transactions,
     loading: transactionsIsLoading,
     error: transactionsError,
     refetch: refetchTransactions,
   } = useQueryTransactions();
+
+  const {
+    createTransaction, loadingTransaction
+  } = useTransactionMutations(refetchTransactions);
+
   const {
     categories,
     loading: categoriesIsLoading,
-    error: categoriesError,
-    refetch: refetchCategories,
+    error: categoriesError
   } = useQueryCategories();
 
   const [totalBalance, monthIncome, monthExpenses] = calculateBalances(transactions);
+  
   const categoryAnalysis = useCategoryAnalysis(categories, transactions);
 
   const recentTransactions = useMemo(() => {
@@ -104,6 +112,13 @@ export function DashboardScreen() {
       .sort((a, b) => (b.date.localeCompare(a.date)))
       .slice(0, 5);
   }, [transactions]);
+
+  async function handleCreateTransaction(
+    data: Parameters<typeof createTransaction>[0]
+  ) {
+    await createTransaction(data);
+    setModalOpen(false);
+  }
 
   return (
     <AuthLayout>
@@ -177,7 +192,7 @@ export function DashboardScreen() {
                 <div className="flex items-center justify-between px-4 py-3 border-b border-border">
                   <span className="font-light text-gray-500">TRANSAÇÕES RECENTES</span>
                   <Link
-                    to="/"
+                    to="/transactions"
                     className="text-sm font-medium text-primary hover:underline">
                     Ver todas
                   </Link>
@@ -251,7 +266,7 @@ export function DashboardScreen() {
                 <div className="flex items-center justify-between px-4 py-3 border-b border-border">
                   <span className="font-light text-gray-500 uppercase">Categorias</span>
                   <Link
-                    to="/"
+                    to="/categories"
                     className="text-sm font-medium text-primary hover:underline">
                     Gerenciar
                   </Link>
@@ -293,6 +308,19 @@ export function DashboardScreen() {
           </div>
         </div>
       </div>
+
+      <FormTransactionModal
+        visible={modalOpen}
+        onVisibleChange={setModalOpen}
+        mode="create"
+        transaction={null}
+        onSubmit={handleCreateTransaction}
+        loading={loadingTransaction}
+        categories={
+          categories.map(
+            (c: any) => ({ id: c.id, title: c.title })
+          )
+        } />
     </AuthLayout>
   )
 }

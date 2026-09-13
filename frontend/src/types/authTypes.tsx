@@ -10,5 +10,9 @@ export type AuthContextType = {
     isAuthenticated: boolean;
     login: (token: string, user: UserType) => void;
     logout: () => void;
-    updateUser: (user: UserType) => void;
+    updateUser: (user: Pick<UserType, 'name'>) => void;
+}
+
+export type UpdateProfileInput = {
+    name: string;
 }

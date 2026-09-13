@@ -20,3 +20,24 @@ export interface TransactionCategory {
     icon?: string | null;
     color?: string | null;
 }
+
+export interface CreateTransactionInput {
+    type: TransactionType;
+    amount: number;
+    description: string;
+    date: string;
+    categoryId: string;
+}
+
+export interface UpdateTransactionInput {
+    type?: TransactionType;
+    amount?: number;
+    description?: string;
+    date?: string;
+    categoryId?: string;
+}
+
+export const TRANSACTION_TYPES_LABEL: Record<TransactionType, string> = {
+    INCOME: 'Receita',
+    EXPENSE: 'Despesa',
+};

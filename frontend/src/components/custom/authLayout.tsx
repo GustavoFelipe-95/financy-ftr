@@ -44,7 +44,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
                     <Link
                         className='flex items-center shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring'
                         aria-label='Abrir Perfil'
-                        to="/">
+                        to="/profile">
                         <AvatarProfile
                             name={user?.name ?? ''}
                             email={user?.email ?? ''}
