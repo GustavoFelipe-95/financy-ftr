@@ -1,3 +1,12 @@
+export interface Category {
+    id: string;
+    title: string;
+    icon: string;
+    color: string;
+    description?: string | null;
+    transactions?: { id: string }[];
+}
+
 export interface CreateCategoryInput {
     title: string;
     description: string | null;

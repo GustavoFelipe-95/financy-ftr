@@ -127,12 +127,8 @@ export function FormTransactionModal({
                     onSubmit={form.handleSubmit(handleSubmit)}>
 
                     <div className='space-y-2'>
-                        <label
-                            className='text-sm font-medium leading-none text-muted-foreground'>
-                            Tipo
-                        </label>
                         <div className='flex gap-2'>
-                            {(['INCOME', 'EXPENSE'] as const).map((type) => {
+                            {(['EXPENSE', 'INCOME'] as const).map((type) => {
                                 const isSelected = form.watch('type') === type;
                                 const isExpense = type === 'EXPENSE';
                                 const IconVariable = isExpense ? Minus : Plus;

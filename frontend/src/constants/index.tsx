@@ -16,3 +16,12 @@ export const CATEGORY_ICON_LIST = [
   { value: 'Mail', label: 'Mail' },
   { value: 'FileText', label: 'Notes' },
 ];
+
+export const CATEGORY_COLOR_LIST = [
+  { value: '#4CAF50', label: 'Verde' },
+  { value: '#2196F3', label: 'Azul' },
+  { value: '#9C27B0', label: 'Roxo' },
+  { value: '#F44336', label: 'Vermelho' },
+  { value: '#FF9800', label: 'Laranja' },
+  { value: '#FFB300', label: 'Âmbar' },
+];

@@ -82,7 +82,6 @@ function useCategoryAnalysis(categories: any[], transactions: any[]) {
   }, [transactions, categories]);
 }
 
-
 export function DashboardScreen() {
   const [modalOpen, setModalOpen] = useState(false)
   

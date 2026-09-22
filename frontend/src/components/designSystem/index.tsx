@@ -1,7 +1,2 @@
-import { ContainerScreen } from './containerScreeen';
-import { Typography } from './typography';
-
-export {
-  ContainerScreen,
-  Typography
-}
+export { ContainerScreen } from './containerScreen';
+export { Typography } from './typography';
