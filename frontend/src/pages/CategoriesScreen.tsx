@@ -3,17 +3,15 @@ import { useQueryCategories } from '@/hooks/useQueryCategories';
 import { useState } from 'react';
 import type { Category } from '@/types';
 import { AuthLayout } from '@/components/custom/authLayout';
-
 import { Button } from '@/components/ui/button';
 import { Plus} from 'lucide-react';
-
-import '@/index.css';
 import { H1, Body } from '@/components/designSystem/typography';
 import { Card, CardContent } from '@/components/ui/card';
 import { CategoryCard } from '@/components/custom/category/categoryCard';
 import { CategorySummary } from '@/components/custom/category/categorySummary';
 import { DeleteCategoryConfirm } from '@/components/form/deleteCategorieModal';
 import { CategoryFormModal } from '@/components/form/categoryModal';
+import '@/index.css';
 
 export function CategoriesScreen() {
   const { categories, loading: categoriesIsLoading, error, refetch } = useQueryCategories();

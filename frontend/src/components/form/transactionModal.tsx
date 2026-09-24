@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { SelectField } from '../ui/select';
-import { TRANSACTION_TYPES_LABEL, type CreateTransactionInput, type Transaction, type TransactionType } from '@/types';
+import { TRANSACTION_TYPES_LABEL, type Category, type CreateTransactionInput, type Transaction, type TransactionType } from '@/types';
 import { clsxInputs } from '@/lib/clsxInputs';
 import { formatCurrency, formatParseCurrency } from '@/lib/utils';
 
@@ -25,7 +25,7 @@ export interface FormTransactionModalProps {
     categories: { id: string; title: string }[];
 }
 
-export function FormTransactionModal({
+export function TransactionFormModal({
     visible,
     onVisibleChange,
     mode = 'create',
