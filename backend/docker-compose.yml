@@ -1,0 +1,17 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: financy-backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - JWT_SECRET=$JWT_SECRET
+      - DATABASE_URL=$DATABASE_URL
+      - PORT=$PORT
+    volumes:
+      - backend-db:/app/database
+volumes:
+  backend-db:

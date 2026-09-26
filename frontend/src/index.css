@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Palette: Brand */
+    --brand-dark: #124b2b;
+    --brand-base: #1f6f43;
+
+    /* Palette: Grayscale */
+    --gray-800: #111827;
+    --gray-700: #374151;
+    --gray-600: #4b5563;
+    --gray-500: #6b7280;
+    --gray-400: #9ca3af;
+    --gray-300: #d1d5db;
+    --gray-200: #e5e7eb;
+    --gray-100: #f8f9fa;
+
+    /* Palette: Neutral */
+    --neutral-black: #000000;
+    --neutral-white: #ffffff;
+
+    /* Palette: Feedback */
+    --feedback-danger: #ef4444;
+    --feedback-success: #19ad70;
+
+    /* Palette: Colors */
+    --blue-dark: #1d4ed8;
+    --blue-base: #2563eb;
+    --blue-light: #dbeafe;
+    --purple-dark: #7e22ce;
+    --purple-base: #9333ea;
+    --purple-light: #f3e8ff;
+    --pink-dark: #be185d;
+    --pink-base: #db2777;
+    --pink-light: #fce7f3;
+    --red-dark: #b91c1c;
+    --red-base: #dc2626;
+    --red-light: #fee2e2;
+    --orange-dark: #c2410c;
+    --orange-base: #ea580c;
+    --orange-light: #ffedd5;
+    --yellow-dark: #a16207;
+    --yellow-base: #ca8a04;
+    --yellow-light: #f7f3ca;
+    --green-dark: #15803d;
+    --green-base: #16a34a;
+    --green-light: #e0fae9;
+
+    /* Semantic (mapped to palette) */
+    --background: var(--neutral-white);
+    --page-background: var(--gray-100);
+    --foreground: var(--gray-800);
+    --card: var(--neutral-white);
+    --card-foreground: var(--gray-800);
+    --popover: var(--neutral-white);
+    --popover-foreground: var(--gray-800);
+    --primary: var(--brand-base);
+    --primary-foreground: var(--neutral-white);
+    --secondary: var(--gray-100);
+    --secondary-foreground: var(--gray-800);
+    --muted: var(--gray-100);
+    --muted-foreground: var(--gray-500);
+    --accent: var(--gray-100);
+    --accent-foreground: var(--gray-800);
+    --destructive: var(--feedback-danger);
+    --destructive-foreground: var(--neutral-white);
+    --border: var(--gray-200);
+    --input: var(--gray-200);
+    --ring: var(--brand-base);
+    --chart-1: var(--blue-base);
+    --chart-2: var(--green-base);
+    --chart-3: var(--orange-base);
+    --chart-4: var(--purple-base);
+    --chart-5: var(--pink-base);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: var(--gray-800);
+    --page-background: var(--gray-800);
+    --foreground: var(--gray-100);
+    --card: var(--gray-800);
+    --card-foreground: var(--gray-100);
+    --popover: var(--gray-800);
+    --popover-foreground: var(--gray-100);
+    --primary: var(--brand-base);
+    --primary-foreground: var(--neutral-white);
+    --secondary: var(--gray-700);
+    --secondary-foreground: var(--gray-100);
+    --muted: var(--gray-700);
+    --muted-foreground: var(--gray-400);
+    --accent: var(--gray-700);
+    --accent-foreground: var(--gray-100);
+    --destructive: var(--feedback-danger);
+    --destructive-foreground: var(--neutral-white);
+    --border: var(--gray-600);
+    --input: var(--gray-600);
+    --ring: var(--gray-400);
+    --chart-1: var(--blue-base);
+    --chart-2: var(--green-base);
+    --chart-3: var(--orange-base);
+    --chart-4: var(--purple-base);
+    --chart-5: var(--pink-base);
+  }
+}
