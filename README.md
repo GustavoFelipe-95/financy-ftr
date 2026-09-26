@@ -347,3 +347,21 @@ Cada categoria e transação pertence a um usuário. As consultas e mutations au
 ## Licença
 
 Este projeto está sob a licença ISC.
+
+## 👨‍💻 Autor
+
+**Gustavo Felipe**  
+📧 Email: zegustavo149@gmail.com
+🔗 LinkedIn: [Gustavo Melo](www.linkedin.com/in/jgustavofmespindola)
+🔗 GitHub: [@GustavoFelipe-95](https://github.com/GustavoFelipe-95)
+
+## 🙏 Agradecimentos
+
+- **Rocketseat** pelo desafio FTR
+- Comunidade open-source pelas ferramentas incríveis
+
+---
+
+<div align="center">
+**⭐ Se este projeto foi útil, considere dar uma estrela!**
+</div>
