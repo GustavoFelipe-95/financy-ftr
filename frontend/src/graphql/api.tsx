@@ -54,6 +54,9 @@ export const GET_CATEGORIES = gql`
 			description
 			icon
 			color
+			transactions {
+				id
+			}
 		}
 	}
 `;

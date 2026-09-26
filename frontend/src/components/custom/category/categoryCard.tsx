@@ -4,7 +4,8 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Body, Caption } from "@/components/designSystem/typography";
 import { TagPill } from "../tagPill";
 import type { Category } from "@/types/categoryTypes";
-import { Pencil, Trash2 } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
+import { CATEGORY_COLOR_LIST } from "@/constants";
 
 export interface CategoryCardProps {
     category: Category;
@@ -15,14 +16,16 @@ export interface CategoryCardProps {
 export function CategoryCard({ category, onEdit, onDelete }: CategoryCardProps) {
     const count = category?.transactions?.length ?? 0;
     const concatLabel = count === 1 ? 'item' : 'itens';
+    const categoryPallet = CATEGORY_COLOR_LIST.find(item => item.value === category.color);
 
     return (
         <Card>
             <CardContent className="pt-6">
                 <div className="flex items-start justify-between gap-2">
                     <div
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg text-gray-600">
-                        <CategoryIcon iconName={category.icon} size={20} className="text-gray-400" />
+                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg"
+                        style={{ backgroundColor: categoryPallet?.value ?? category.color }}>
+                        <CategoryIcon iconName={category.icon} size={20} style={{ color: categoryPallet?.base ?? 'black' }} />
                     </div>
                     <div className="flex shrink-0 gap-1">
                         <IconButton
@@ -36,7 +39,7 @@ export function CategoryCard({ category, onEdit, onDelete }: CategoryCardProps) 
                             size="sm"
                             aria-label="Editar categoria"
                             onClick={() => onEdit?.(category)}>
-                            <Pencil className="h-4 w-4" />
+                            <SquarePen className="h-4 w-4" />
                         </IconButton>
                     </div>
                 </div>
@@ -49,7 +52,11 @@ export function CategoryCard({ category, onEdit, onDelete }: CategoryCardProps) 
                     )}
                 </div>
                 <div className="flex items-center justify-between flex-wrap">
-                    <TagPill label={category.title} color={category.color} />
+                    <TagPill
+                        label={category.title}
+                        color={categoryPallet?.value ?? category.color}
+                        className="font-semibold"
+                        textColor={categoryPallet?.base ?? 'white'} />
                     <Caption className="text-muted-foreground text-sm text-light">
                         {count} {concatLabel}
                     </Caption>

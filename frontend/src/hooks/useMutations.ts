@@ -6,7 +6,7 @@ import {
 } from "@/graphql/api";
 import type { CreateTransactionInput, UpdateTransactionInput } from "@/types/transactionTypes";
 import type { CreateCategoryInput, UpdateCategoryInput } from "@/types/categoryTypes";
-import type { UpdateProfileInput, UserType } from "@/types/authTypes";
+import type { UpdateProfileInput } from "@/types/authTypes";
 
 function handleCategoryError(error: any): { message: string; statusCode?: string } | null {
     if (!error) return null;

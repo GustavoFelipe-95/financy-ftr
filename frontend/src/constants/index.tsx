@@ -18,10 +18,11 @@ export const CATEGORY_ICON_LIST = [
 ];
 
 export const CATEGORY_COLOR_LIST = [
-  { value: '#4CAF50', label: 'Verde' },
-  { value: '#2196F3', label: 'Azul' },
-  { value: '#9C27B0', label: 'Roxo' },
-  { value: '#F44336', label: 'Vermelho' },
-  { value: '#FF9800', label: 'Laranja' },
-  { value: '#FFB300', label: 'Âmbar' },
+  { value: '#E0FAE9', base: '#16A34A', label: 'Verde' },
+  { value: '#DBEAFE', base: '#2563EB', label: 'Azul' },
+  { value: '#F3E8FF', base: '#9333EA', label: 'Roxo' },
+  { value: '#FCE7F3', base: '#DB2777', label: 'Rosa' },
+  { value: '#FEE2E2', base: '#DC2626', label: 'Vermelho' },
+  { value: '#FFE8D6', base: '#EA580C', label: 'Laranja' },
+  { value: '#F7F3CA', base: '#CA8A04', label: 'Âmbar' },
 ];

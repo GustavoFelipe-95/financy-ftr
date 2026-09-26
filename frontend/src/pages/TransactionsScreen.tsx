@@ -5,11 +5,11 @@ import type { Category } from '@/types/categoryTypes';
 import { useQueryCategories } from '@/hooks/useQueryCategories';
 import { useState, useMemo } from 'react';
 import { TRANSACTION_FILTER_DEFAULT, TRANSACTION_TYPE_OPTIONS, TRANSACTION_TYPES_TABLE_LABEL } from '@/types/transactionTypes';
-import { formatCurrency, formatDateBRII, PERIOD_FILTER_ALL, PERIOD_FILTER_OPTIONS } from '@/lib/utils';
+import { formatCurrency, formatDateBRII, getVisiblePages, PERIOD_FILTER_ALL, PERIOD_FILTER_OPTIONS } from '@/lib/utils';
 import { AuthLayout } from '@/components/custom/authLayout';
 import { H1, Body } from '@/components/designSystem/typography';
 import { Button } from '@/components/ui/button';
-import { CircleArrowUp, Pencil, Plus, Trash2, CircleArrowDown } from 'lucide-react';
+import { CircleArrowUp, Plus, Trash2, CircleArrowDown, SquarePen } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { SelectField } from '@/components/ui/select';
@@ -20,6 +20,7 @@ import { CategoryIcon } from '@/components/custom/categoryIcon';
 import { TransactionFormModal } from '@/components/form/transactionModal';
 import { DeleteTransactionModal } from '@/components/form/deleteTransactionModal';
 import '@/index.css';
+import { CATEGORY_COLOR_LIST } from '@/constants';
 
 const PAGE_LIMIT = 10;
 const CATEGORY_FILTER = 'all';
@@ -103,7 +104,7 @@ export function TransactionsScreen() {
         date: data?.date,
         type: data?.type as TransactionType
       });
-    } else if (editingTransaction &&formType === 'edit') {
+    } else if (editingTransaction && formType === 'edit') {
       await updateTransaction(editingTransaction.id, {
         description: data?.description,
         amount: data?.amount,
@@ -220,25 +221,25 @@ export function TransactionsScreen() {
                   </Card>
                 ) : (
                   <div className='border border-input rounded-md'>
-                    <table className='w-full text-sm'>
+                    <table className='w-full text-sm bg-white rounded-md'>
                       <thead>
                         <tr className='bg-muted/50 border-b border-input'>
-                          <th className='py-3 px-10 uppercase text-muted-foreground text-xs text-left font-light'>
+                          <th className='py-3 px-10 uppercase text-muted-foreground text-xs text-left font-medium'>
                             Descrição
                           </th>
-                          <th className='py-3 px-2 uppercase text-muted-foreground text-xs text-center font-light'>
+                          <th className='py-3 px-2 uppercase text-muted-foreground text-xs text-center font-medium'>
                             Data
                           </th>
-                          <th className='py-3 px-4 uppercase text-muted-foreground text-xs text-center font-light'>
+                          <th className='py-3 px-4 uppercase text-muted-foreground text-xs text-center font-medium'>
                             Categoria
                           </th>
-                          <th className='py-3 px-2 uppercase text-muted-foreground text-xs text-center font-light'>
+                          <th className='py-3 px-2 uppercase text-muted-foreground text-xs text-center font-medium'>
                             Tipo
                           </th>
-                          <th className='py-3 px-4 uppercase text-muted-foreground text-xs text-right font-light'>
+                          <th className='py-3 px-4 uppercase text-muted-foreground text-xs text-right font-medium'>
                             Valor
                           </th>
-                          <th className='py-3 px-4 uppercase text-muted-foreground text-xs text-right font-light'>
+                          <th className='py-3 px-4 uppercase text-muted-foreground text-xs text-right font-medium'>
                             Ações
                           </th>
                         </tr>
@@ -253,13 +254,16 @@ export function TransactionsScreen() {
                                     className='flex items-center justify-center h-8 w-8 shrink-0 text-gray-600 rounded-lg'
                                     style={{
                                       backgroundColor: transaction.category?.color
-                                        ? `${transaction.category?.color}20`
+                                        ? `${transaction.category?.color}`
                                         : '#e5e7eb'
                                     }}
                                     aria-hidden>
                                     <CategoryIcon
                                       iconName={transaction.category?.icon ?? 'Folder'}
                                       className='text-gray-500'
+                                      style={{
+                                        color: CATEGORY_COLOR_LIST.find(color => color.value === transaction.category?.color)?.base ?? 'black'
+                                      }}
                                       size={16} />
                                   </div>
                                   <span className='font-semibold text-foreground'>
@@ -275,7 +279,9 @@ export function TransactionsScreen() {
                                   transaction.category ? (
                                     <TagPill
                                       label={transaction.category.title}
-                                      color={transaction.category.color ?? '#9ca3af'} />
+                                      color={transaction.category.color ?? '#9ca3af'}
+                                      className="font-semibold"
+                                      textColor={CATEGORY_COLOR_LIST.find(color => color.value === transaction.category?.color)?.base ?? 'black'} />
                                   ) : '-'
                                 }
                               </td>
@@ -299,6 +305,7 @@ export function TransactionsScreen() {
                               <td className='py-3 px-2'>
                                 <div className='flex gap-1 shrink-0 justify-end'>
                                   <IconButton
+                                    className="text-destructive"
                                     aria-label="Excluir transação"
                                     onClick={() => handleActionTransaction('delete', transaction)}>
                                     <Trash2 className='w-4 h-4' />
@@ -306,7 +313,7 @@ export function TransactionsScreen() {
                                   <IconButton
                                     aria-label="Editar transação"
                                     onClick={() => handleActionTransaction('edit', transaction)}>
-                                    <Pencil className='w-4 h-4' />
+                                    <SquarePen className='w-4 h-4' />
                                   </IconButton>
                                 </div>
                               </td>
@@ -316,22 +323,36 @@ export function TransactionsScreen() {
                       </tbody>
                       <tfoot>
                         <tr className='bg-muted/30 border-t border-input'>
-                          <td colSpan={6} className='py-3 px-4 uppercase text-muted-foreground'>
+                          <td colSpan={6} className='py-3 px-4 text-muted-foreground'>
                             <div className='flex justify-between items-center gap-4'>
                               <Body className='text-muted-foreground'>
                                 {
                                   `${startIndex + 1} a ${endIndex} | ${totalFilteredTransactions} resultado${totalFilteredTransactions !== 1 ? 's' : ''}`
                                 }
                               </Body>
-                              <div className='flex items-center gap-2'>
-                                <Body className='text-muted-foreground'>
-                                  {`Página ${currentPage} de ${totalPages}`}
-                                </Body>
-                              </div>
+
                               <div className='flex items-center gap-1'>
                                 <PaginationPrevButton
                                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                                   disabled={currentPage === 1} />
+
+                                {getVisiblePages(currentPage, totalPages).map((page) => (
+                                  <button
+                                    key={page}
+                                    onClick={() => setCurrentPage(page)}
+                                    className={`
+                                      flex h-8 w-8 items-center justify-center
+                                      rounded-md text-xs
+                                      ${currentPage === page
+                                        ? 'bg-green-700 text-white'
+                                        : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                                      }
+                                    `}
+                                  >
+                                    {page}
+                                  </button>
+                                ))}
+
                                 <PaginationNextButton
                                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                                   disabled={currentPage === totalPages} />

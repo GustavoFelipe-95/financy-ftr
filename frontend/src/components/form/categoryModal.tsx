@@ -39,7 +39,7 @@ export function CategoryFormModal({
             title: '',
             description: '',
             icon: CATEGORY_ICON_LIST[0].value,
-            color: CATEGORY_COLOR_LIST[0].value
+            color: CATEGORY_COLOR_LIST[0].base
         }
     });
 
@@ -60,7 +60,7 @@ export function CategoryFormModal({
                 title: '',
                 description: '',
                 icon: CATEGORY_ICON_LIST[0].value,
-                color: CATEGORY_COLOR_LIST[0].value
+                color: CATEGORY_COLOR_LIST[0].base
             });
         }
     }, [category?.id, form, visible, mode]);
@@ -176,7 +176,7 @@ export function CategoryFormModal({
                                                 ? 'border-primary ring-2 ring-primary ring-offset-2'
                                                 : 'border-gray-200 ring-1 ring-offset-2 hover:opacity-80'
                                         )}
-                                        style={{ backgroundColor: option.value }}
+                                        style={{ backgroundColor: `${option.base}` }}
                                         aria-pressed={isSelected}
                                         aria-label={option.label}
                                     />

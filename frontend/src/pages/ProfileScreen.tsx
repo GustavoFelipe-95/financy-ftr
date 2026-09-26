@@ -70,6 +70,7 @@ export function ProfileScreen() {
             <form onSubmit={form.handleSubmit(handleUpdateProfile)} className='space-y-4'>
               <Input
                 label='Nome Completo'
+                className='py-5'
                 startIcon={<User className='size-4' />}
                 {...form.register('name')}
                 error={!!form.formState.errors.name}
@@ -77,6 +78,7 @@ export function ProfileScreen() {
 
               <Input
                 label='E-mail'
+                className='py-5'
                 startIcon={<Mail className='size-4' />}
                 value={user.email}
                 disabled
@@ -89,15 +91,15 @@ export function ProfileScreen() {
               )}
               
               <div className='flex flex-col pt-2 gap-3'>
-                <Button type='submit' disabled={loadingProfile} className='w-full'>
-                  {loadingProfile ? 'Atualizando...' : 'Atualizar Perfil'}
+                <Button type='submit' disabled={loadingProfile} className='w-full py-5'>
+                  {loadingProfile ? 'Atualizando...' : 'Salvar Alterações'}
                 </Button>
                 <Button
                   type='button'
-                  className='w-full'
+                  className='w-full py-5'
                   variant="outline"
                   onClick={handleLogout}>
-                  <LogOut className='size-4 mr-2' />
+                  <LogOut className='size-4 mr-2' color='#EF4444' />
                   Sair da Conta
                 </Button>
               </div>

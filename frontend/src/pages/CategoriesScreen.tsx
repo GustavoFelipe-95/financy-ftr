@@ -133,8 +133,7 @@ export function CategoriesScreen() {
         mode={formType}
         category={formType === 'edit' ? editingCategory : null}
         onSubmit={handleFormSubmit}
-        loading={categoriesMutationsIsLoading}
-      />
+        loading={categoriesMutationsIsLoading} />
 
       <DeleteCategoryConfirm
         visible={formDeletingVisible}
@@ -145,8 +144,7 @@ export function CategoriesScreen() {
         category={deletingCategory}
         onConfirm={handleDeleteConfirm}
         loading={categoriesMutationsIsLoading}
-        errorMessage={deleteErrorMessage}
-      />
+        errorMessage={deleteErrorMessage} />
     </AuthLayout>
   )
 }

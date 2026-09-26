@@ -29,12 +29,12 @@ export const PERIOD_FILTER_ALL = 'all';
 
 export function getMonthYear(): MonthYearList[] {
   const list: MonthYearList[] = [];
-  
+
   const monthNames = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
-  
+
   const now = new Date();
 
   for (let i = 0; i < 12; i++) {
@@ -43,8 +43,35 @@ export function getMonthYear(): MonthYearList[] {
     const label = `${monthNames[date.getMonth()]} / ${date.getFullYear()}`;
     list.push({ value, label });
   }
-  
+
   return list;
 }
 
 export const PERIOD_FILTER_OPTIONS = getMonthYear();
+
+export function getVisiblePages(currentPage: number, totalPages: number) {
+  if (totalPages <= 3) {
+    return Array.from(
+      { length: totalPages },
+      (_, index) => index + 1
+    );
+  }
+
+  if (currentPage === 1) {
+    return [1, 2, 3];
+  }
+
+  if (currentPage === totalPages) {
+    return [
+      totalPages - 2,
+      totalPages - 1,
+      totalPages,
+    ];
+  }
+
+  return [
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+  ];
+};

@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { transactionSchema } from '../../validations/transactionValidation';
 import { Modal } from '../ui/modal';
 import { IconButton } from '../ui/icon-button';
-import { Minus, Plus, X } from 'lucide-react';
+import { CalendarDays, Minus, Plus, X } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { SelectField } from '../ui/select';
-import { TRANSACTION_TYPES_LABEL, type Category, type CreateTransactionInput, type Transaction, type TransactionType } from '@/types';
+import { TRANSACTION_TYPES_LABEL, type CreateTransactionInput, type Transaction, type TransactionType } from '@/types';
 import { clsxInputs } from '@/lib/clsxInputs';
 import { formatCurrency, formatParseCurrency } from '@/lib/utils';
 
@@ -35,6 +35,7 @@ export function TransactionFormModal({
     categories
 }: FormTransactionModalProps) {
     const [amountInsert, setAmountInsert] = useState('');
+    const dateInputRef = useRef<HTMLInputElement>(null);
 
     const categoryOptions = categories.map(cat => ({ value: cat.id, label: cat.title }))
 
@@ -48,6 +49,8 @@ export function TransactionFormModal({
             date: '',
         }
     })
+
+    const dateField = form.register('date');
 
     useEffect(() => {
         if(!visible) {
@@ -127,7 +130,7 @@ export function TransactionFormModal({
                     onSubmit={form.handleSubmit(handleSubmit)}>
 
                     <div className='space-y-2'>
-                        <div className='flex gap-2'>
+                        <div className='flex gap-2 border border-gray-300 p-2 rounded-md'>
                             {(['EXPENSE', 'INCOME'] as const).map((type) => {
                                 const isSelected = form.watch('type') === type;
                                 const isExpense = type === 'EXPENSE';
@@ -144,10 +147,10 @@ export function TransactionFormModal({
                                             isExpense
                                                 ? isSelected
                                                     ? 'border-red-500 bg-red-50 text-red-700 ring-2 ring-red-500'
-                                                    : 'border-input bg-background text-muted-foreground hover:border-gray-400'
+                                                    : 'border-input bg-background text-muted-foreground hover:border-red-500'
                                                 : isSelected
-                                                    ? 'border-gray-400 bg-gray-100 text-gray-800 ring-2 ring-gray-400'
-                                                    : 'border-input bg-background text-muted-foreground hover:border-gray-400'
+                                                    ? 'border-green-400 bg-green-100 text-green-800 ring-2 ring-green-400'
+                                                    : 'border-input bg-background text-muted-foreground hover:border-green-400'
                                         )}>
                                         <span
                                             className={clsxInputs(
@@ -157,7 +160,7 @@ export function TransactionFormModal({
                                                         ? 'bg-red-500 text-white'
                                                         : 'bg-gray-300 text-white'
                                                     : isSelected
-                                                        ? 'bg-gray-500 text-white'
+                                                        ? 'bg-green-500 text-white'
                                                         : 'bg-gray-300 text-white'
                                             )}>
                                             <IconVariable className="w-4 h-4" aria-hidden />
@@ -184,11 +187,31 @@ export function TransactionFormModal({
                                 className='text-sm font-medium leading-none text-muted-foreground'>
                                 Data
                             </label>
-                            <input
-                                type="date"
-                                {...form.register('date')}
-                                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring"
-                            />
+                            <div className="relative">
+                                <input
+                                    type="date"
+                                    {...dateField}
+                                    ref={(element) => {
+                                        dateField.ref(element);
+                                        dateInputRef.current = element;
+                                    }}
+                                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 pr-10 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring [&::-webkit-calendar-picker-indicator]:opacity-0"
+                                />
+                                <button
+                                    type="button"
+                                    aria-label="Abrir calendário"
+                                    title="Abrir calendário"
+                                    onClick={() => {
+                                        const input = dateInputRef.current;
+                                        if (!input) return;
+                                        if (typeof input.showPicker === 'function') input.showPicker();
+                                        else input.click();
+                                    }}
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                                >
+                                    <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                                </button>
+                            </div>
                             {form.formState.errors.date && (
                                 <p className="text-sm text-destructive">{form.formState.errors.date.message}</p>
                             )}
@@ -198,19 +221,22 @@ export function TransactionFormModal({
                             control={form.control}
                             name="amount"
                             render={({ field }) => (
-                                <div>
-                                    <label className='text-sm font-medium leading-none text-muted-foregound'>
+                                <div className="space-y-1.5">
+                                    <label htmlFor="transaction-amount" className="text-sm font-medium leading-none text-muted-foreground">
                                         Valor
                                     </label>
                                     <input
+                                        id="transaction-amount"
                                         type="text"
                                         inputMode="decimal"
                                         placeholder="Ex. 0,00"
-                                        className={clsxInputs('flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring')}
+                                        aria-invalid={!!form.formState.errors.amount}
+                                        className={clsxInputs('flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring')}
                                         value={amountInsert}
                                         onChange={(e) => {
-                                            setAmountInsert(e.target.value);
-                                            field.onChange(formatParseCurrency(e.target.value))
+                                            const raw = e.target.value.replace(/[^0-9.,]/g, '');
+                                            setAmountInsert(raw);
+                                            field.onChange(formatParseCurrency(raw));
                                         }}
                                         onBlur={() => {
                                             setAmountInsert(
@@ -219,7 +245,8 @@ export function TransactionFormModal({
                                                     : `R$ ${formatCurrency(field.value)}`
                                             );
                                             field.onBlur();
-                                        }} />
+                                        }}
+                                    />
                                     {form.formState.errors.amount && (
                                         <p className="text-sm text-destructive">{form.formState.errors.amount.message}</p>
                                     )}
@@ -247,11 +274,13 @@ export function TransactionFormModal({
 
                     <div className="pt-2 justify-center flex">
                         <Button
-                            className="w-full rounded-lg bg-primary text-primary-foreground hover:bg-brand-dark"
+                            className="w-full py-6 rounded-lg bg-primary text-primary-foreground hover:bg-brand-dark"
                             type="submit"
                             disabled={loading}
                             size={'lg'}>
+                            <p className="text-lg font-semibold">
                             {loading ? 'Salvando...' : 'Salvar'}
+                            </p>
                         </Button>
                     </div>
                 </form>
