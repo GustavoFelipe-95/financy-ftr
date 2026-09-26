@@ -7,6 +7,10 @@ export interface Category {
     transactions?: { id: string }[];
 }
 
+export interface CategoryQueryData {
+    categories: Category[];
+}
+
 export interface CreateCategoryInput {
     title: string;
     description: string | null;

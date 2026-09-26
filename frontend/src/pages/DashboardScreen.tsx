@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { AuthLayout } from '@/components/custom/authLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ChevronRight, CircleArrowDown, CircleArrowUp, Minus, Plus, Wallet } from 'lucide-react';
+import { ChevronRight, CircleArrowDown, CircleArrowUp, Plus, Wallet } from 'lucide-react';
 import { Body } from '@/components/designSystem/typography';
 import { useQueryTransactions } from '@/hooks/useQueryTransactions';
 import { useQueryCategories } from '@/hooks/useQueryCategories';
@@ -242,7 +242,7 @@ export function DashboardScreen() {
                             <td className="py-3 px-4 w-[30%]">
                               <div className="flex w-full items-center justify-center">
                                 <TagPill
-                                  label={trs.category.title}
+                                  label={trs.category?.title ?? 'Sem categoria'}
                                   color={
                                     trs.category?.color
                                       ? CATEGORY_COLOR_LIST.find(

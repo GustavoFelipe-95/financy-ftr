@@ -1,8 +1,9 @@
 import { useQuery } from '@apollo/client/react';
 import { GET_CATEGORIES } from '@/graphql/api';
+import type { CategoryQueryData } from '@/types/categoryTypes';
 
 export function useQueryCategories() {
-    const { data, error, loading, refetch } = useQuery(GET_CATEGORIES);
+    const { data, error, loading, refetch } = useQuery<CategoryQueryData>(GET_CATEGORIES);
 
     const categories = data?.categories ?? [];
 

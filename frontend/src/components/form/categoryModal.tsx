@@ -14,16 +14,16 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { getCategoryIcon } from "../custom/categoryIcon";
 
+export type CategoryFormValues = z.infer<typeof categorySchema>;
+
 export interface CategoryFormModalProps {
     visible: boolean;
     onVisibleChange: (visible: boolean) => void;
     mode: 'create' | 'edit';
     category?: Category | null;
-    onSubmit: (data: Category) => Promise<void>;
+    onSubmit: (data: CategoryFormValues) => Promise<void>;
     loading?: boolean;
 }
-
-type FormValues = z.infer<typeof categorySchema>;
 
 export function CategoryFormModal({
     visible,
@@ -33,7 +33,7 @@ export function CategoryFormModal({
     onSubmit,
     loading = false,
 }: CategoryFormModalProps) {
-    const form = useForm<FormValues>({
+    const form = useForm<CategoryFormValues>({
         resolver: zodResolver(categorySchema),
         defaultValues: {
             title: '',
@@ -65,7 +65,7 @@ export function CategoryFormModal({
         }
     }, [category?.id, form, visible, mode]);
 
-    async function handleFormSubmit(data: FormValues) {
+    async function handleFormSubmit(data: CategoryFormValues) {
         await onSubmit(data);
         onVisibleChange(false);
     }

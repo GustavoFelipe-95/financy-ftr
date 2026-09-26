@@ -69,14 +69,24 @@ export function TransactionFormModal({
                 transaction.date
                     ? new Date(transaction.date).toISOString().split('T')[0]
                     : '';
+            const transactionCategoryId = transaction.category?.id ?? transaction.categoryId;
+            const selectedCategory = categories.find(
+                category => String(category.id) === String(transactionCategoryId)
+            )?.id;
 
-            form.reset({
-                type: transaction.type,
-                description: transaction.description,
-                amount: transaction.amount,
-                categoryId: transaction.categoryId,
-                date: dateFormatted,
-            });
+            form.setValue('type', transaction.type);
+            form.setValue('description', transaction.description);
+            form.setValue('amount', transaction.amount);
+            form.setValue('categoryId', selectedCategory ?? '');
+            form.setValue('date', dateFormatted);
+
+            // form.reset({
+            //     type: transaction.type,
+            //     description: transaction.description,
+            //     amount: transaction.amount,
+            //     categoryId: selectedCategory?.id ?? '',
+            //     date: dateFormatted,
+            // });
 
             setAmountInsert(
                 transaction.amount === 0
@@ -87,7 +97,7 @@ export function TransactionFormModal({
             setAmountInsert('');
         }
         
-    }, [visible, mode, transaction?.id, form]);
+    }, [visible, mode, transaction?.id, transaction?.categoryId, transaction?.category?.id, categories, form]);
 
     async function handleSubmit(data: FormDataValues) {
         const sendData: CreateTransactionInput = {
@@ -216,6 +226,8 @@ export function TransactionFormModal({
                                 <p className="text-sm text-destructive">{form.formState.errors.date.message}</p>
                             )}
                         </div>
+
+                        
 
                         <Controller
                             control={form.control}

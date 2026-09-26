@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CategoryCard } from '@/components/custom/category/categoryCard';
 import { CategorySummary } from '@/components/custom/category/categorySummary';
 import { DeleteCategoryConfirm } from '@/components/form/deleteCategorieModal';
-import { CategoryFormModal } from '@/components/form/categoryModal';
+import { CategoryFormModal, type CategoryFormValues } from '@/components/form/categoryModal';
 import '@/index.css';
 
 export function CategoriesScreen() {
@@ -47,7 +47,7 @@ export function CategoriesScreen() {
     }
   }
 
-  async function handleFormSubmit(data: Category) {
+  async function handleFormSubmit(data: CategoryFormValues) {
     if (formType === 'create') {
       await createCategory({
         title: data?.title,
